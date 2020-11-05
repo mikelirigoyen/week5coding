@@ -1,0 +1,34 @@
+---
+title: "penguins size comparison"
+author: "Mikel irigoyen"
+date: "11/4/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(palmerpenguins)
+library(effsize)
+library(broom)
+library(ggbeeswarm)
+library(car)
+```
+
+```{r}
+chinstraps <- penguins %>% 
+  filter(species == "Chinstrap")
+
+ggplot(data = chinstraps, aes(x = body_mass_g)) + 
+  geom_histogram(bins = 10) +
+  facet_wrap(~sex)
+
+ggplot(data = chinstraps, aes(sample = body_mass_g)) + 
+  geom_qq() +
+  facet_wrap(~sex)
+
+chinstraps %>% 
+  group_by(sex) %>% 
+  summarize(mean_mass = mean(body_mass_g), median_mass = median(body_mass_g), sd_mass= sd(body_mass_g), sample_size = n())
+```
+
