@@ -389,6 +389,47 @@ ggplot(data = chinstraps, aes(x = body_mass_g)) +
 ##   &lt;fct&gt;      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt;       &lt;int&gt;
 ## 1 female     3527.        3550    285.          34
 ## 2 male       3939.        3950    362.          34</code></pre>
+<p>chinstraps_f &lt;- chinstraps</p>
+<pre class="r"><code>chinstraps_f &lt;- chinstraps %&gt;% 
+  filter(sex == &quot;female&quot;) %&gt;% 
+  pull(body_mass_g)
+
+chinstraps_m &lt;- chinstraps %&gt;% 
+  filter(sex == &quot;male&quot;) %&gt;% 
+  pull(body_mass_g)</code></pre>
+<pre class="r"><code>chinstrap_ttest &lt;- t.test(chinstraps_f, chinstraps_m)
+chinstrap_ttest</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  chinstraps_f and chinstraps_m
+## t = -5.2077, df = 62.575, p-value = 2.264e-06
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -569.7903 -253.7391
+## sample estimates:
+## mean of x mean of y 
+##  3527.206  3938.971</code></pre>
+<pre class="r"><code>cohen.d(chinstraps_f, chinstraps_m)</code></pre>
+<pre><code>## 
+## Cohen&#39;s d
+## 
+## d estimate: -1.263061 (large)
+## 95 percent confidence interval:
+##      lower      upper 
+## -1.7933879 -0.7327341</code></pre>
+<pre class="r"><code>t.test(chinstraps_f, alternative = &quot;greater&quot;)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  chinstraps_f
+## t = 72.08, df = 33, p-value &lt; 2.2e-16
+## alternative hypothesis: true mean is greater than 0
+## 95 percent confidence interval:
+##  3444.391      Inf
+## sample estimates:
+## mean of x 
+##  3527.206</code></pre>
 
 
 
